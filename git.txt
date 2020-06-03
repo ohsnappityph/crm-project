@@ -1,0 +1,18 @@
+re-create nlng og repo
+steps
+1. create new directory for the project 
+mkdir project_name
+2. go into the directory
+cd project_name
+3. init local repo
+git init
+4. stage changes
+git add .
+5. commit changes
+git commit -m 'init'
+6. create a new repo and copy code from instructions after creating the repo
+git remote add origin https://github.com/yourusername/yourproject-repo.git 
+7. execute the cmd in ur terminal to set a remote origin for ur local repo
+git remote add origin https://github.com/yourusername/yourproject-repo.git 
+8. push changes to repo
+git push -u origin master

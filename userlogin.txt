@@ -1,0 +1,12 @@
+roles e.g., 
+    [
+        administrator, 
+        client services manager, 
+        design team manager,
+        project architect,
+        3d visualization expert,
+        building surveyor
+    ]    
+    will be created by the admin, which is me bitch
+client accounts
+    will be taken from their order information

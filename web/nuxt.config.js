@@ -6,8 +6,8 @@ export default {
   ** Headers of the page
   */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s - ' + 'Project',
+    title: 'CRM',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -80,5 +80,41 @@ export default {
     */
     extend (config, ctx) {
     }
-  }
+  },
+
+  /*
+  ** Axios module configuration
+  ** See https://axios.nuxtjs.org/options
+  */
+ axios: {
+    baseURL: 'http://127.0.0.1:8000/', // Local Devnux
+    // baseURL: 'https://thesis-mapping-system.herokuapp.com/', // Live Dev
+  },
+  // login: { url: '/api/auth/login', method: 'post', propertyName: 'access_token' },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post', propertyName: 'access_token' },
+          logout: { url: '/api/auth/logout', method: 'post' },
+          user: { url: '/api/auth/me', method: 'post', propertyName: false }
+        },
+        tokenType: 'bearer',
+        autoFetchUser: true
+        // autoFetchUser: false,
+        // tokenRequired: true,
+      }
+    },
+    // redirect: false, 
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      callback: '/login',
+      home: '/dashboard',
+    }
+  },
+
+  router: {
+    middleware: 'auth',
+  },
 }
