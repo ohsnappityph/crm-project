@@ -1,0 +1,32 @@
+- invoice
+- invoice_items (belongs to invoice info)
+- payments
+- payment_items (belongs to payment info)
+- attendance
+- timesheets (belongs to attendance)
+
+invoice table
+- total_amount (sum of all invoice items)
+- order_id
+- date_issued
+- date_paid
+etc other dates relevant pra invoice
+
+invoice items OR invoice details
+- invoice id
+- description
+- amount
+- quantity
+- total amount (amount * quantity)
+
+attendance
+- attendance id
+- date
+- time start
+- break start
+- break end
+- lunch start
+- lunch end
+- time end
+- hours_worked
+- hours_off
