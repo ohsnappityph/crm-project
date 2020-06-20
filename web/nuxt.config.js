@@ -110,11 +110,11 @@ export default {
       login: '/login',
       logout: '/login',
       callback: '/login',
-      home: '/dashboard',
+      home: '/login',
     }
   },
 
   router: {
-    middleware: 'auth',
+    middleware: 'admin',
   },
 }

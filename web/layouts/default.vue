@@ -1,5 +1,20 @@
 <template>
   <v-app>
+    <v-app-bar app color="#4A148C">
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title class="text-uppercase">
+        <nuxt-link :to="{name: 'dashboard'}" style="text-decoration: none; color: white;">
+          <span class="font-weight-bold">FPV</span>
+        </nuxt-link>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-bell</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+    </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -40,15 +55,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app color="#4A148C">
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title class="text-uppercase">
-        <nuxt-link :to="{name: 'dashboard'}" style="text-decoration: none; color: white;">
-          <span class="font-weight-bold">FPV</span>
-        </nuxt-link>
-      </v-toolbar-title>
-    </v-app-bar>
-
     <v-content>
       <div>
         <v-container fluid>
@@ -56,7 +62,6 @@
         </v-container>
       </div>
     </v-content>
-
     <v-footer app>
       <span class="px-4">&copy; {{ new Date().getFullYear() }}</span>
       <v-spacer></v-spacer>
@@ -125,6 +130,12 @@ export default {
       },
     ]
   }),
+  methods: {
+
+  },
+  computed: {
+
+  },
 }
 </script>
 
