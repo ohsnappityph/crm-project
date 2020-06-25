@@ -30,3 +30,6 @@ attendance
 - time end
 - hours_worked
 - hours_off
+
+June 8, 2020
+Make changes to post-appointment database

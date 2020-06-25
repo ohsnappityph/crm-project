@@ -15,7 +15,21 @@ class CreatePaymentItemsTable extends Migration
     {
         Schema::create('payment_items', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('payment_id');
+            $table->text('description');
+            $table->decimal('amount');
+            $table->integer('quantity');
+            $table->decimal('total_amount');
+            $table->date('payment_date');
+            $table->string('payment_method');
+            $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::table('payment_items', function (Blueprint $table) {
+            $table->foreign('payment_id')
+                    ->references('id')->on('payments')
+                    ->cascadeOnDelete();
         });
     }
 

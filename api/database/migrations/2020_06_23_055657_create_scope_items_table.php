@@ -15,7 +15,22 @@ class CreateScopeItemsTable extends Migration
     {
         Schema::create('scope_items', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('scope_id');
+            $table->unsignedBigInteger('items_id');
+            $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::table('scope_items', function (Blueprint $table) {
+            $table->foreign('scope_id')
+                    ->references('id')->on('scopes')
+                    ->cascadeOnDelete();
+        });
+
+        Schema::table('scope_items', function (Blueprint $table) {
+            $table->foreign('items_id')
+                    ->references('id')->on('items')
+                    ->cascadeOnDelete();
         });
     }
 

@@ -88,7 +88,6 @@ export default {
   */
  axios: {
     baseURL: 'http://127.0.0.1:8000/', // Local Devnux
-    // baseURL: 'https://thesis-mapping-system.herokuapp.com/', // Live Dev
   },
   // login: { url: '/api/auth/login', method: 'post', propertyName: 'access_token' },
   auth: {

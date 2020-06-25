@@ -15,7 +15,18 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_id');
+            $table->date('date_issued');
+            $table->date('date_paid');
+            $table->decimal('total_amount_items');
+            $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::table('invoices', function (Blueprint $table) {
+            $table->foreign('order_id')
+                    ->references('id')->on('projects')
+                    ->cascadeOnDelete();
         });
     }
 

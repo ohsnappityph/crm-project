@@ -27,3 +27,8 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 });
+
+Route::apiResource('clients', 'ClientController');
+Route::get('/clients/archived/all', 'ClientController@retrieveDeleted');
+Route::get('clients/restore/{id}', 'ClientController@restoreHousehold');
+Route::get('clients/delete/{id}', 'ClientController@forceDestroy');

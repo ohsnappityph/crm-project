@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Scope;
+use App\Expenses;
+use App\Cost;
+use App\Designer;
+use App\PostAppointment;
+use App\Invoice;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -14,7 +20,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $project = Project::with('scope', 'expenses', 'cost', 'designer', 'postappointment', 'invoice');
+        return response()->json($project, 200);
     }
 
     /**

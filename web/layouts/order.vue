@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app color="#4A148C" flat>
-        <v-btn :to="{ name: 'index' }" color="transparent" depressed fab>
+        <v-btn @click="home()" color="transparent" depressed fab>
             <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
@@ -20,7 +20,11 @@
 
 <script>
 export default {
-
+  methods: {
+    home() {
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 

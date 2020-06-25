@@ -15,7 +15,21 @@ class CreateExpensesTable extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_id');
+            $table->text('blank_field_one');
+            $table->decimal('blank_field_one_pennies');
+            $table->text('blank_field_two');
+            $table->decimal('blank_field_two_pennies');
+            $table->decimal('total_expenses');
+            $table->decimal('adjusted_total');
+            $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::table('expenses', function (Blueprint $table) {
+            $table->foreign('order_id')
+                    ->references('id')->on('projects')
+                    ->cascadeOnDelete();
         });
     }
 

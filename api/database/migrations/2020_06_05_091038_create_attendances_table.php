@@ -15,7 +15,17 @@ class CreateAttendancesTable extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->integer('total_hours_worked');
+            $table->integer('total_hours_off');
+            $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::table('attendances', function (Blueprint $table) {
+            $table->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->cascadeOnDelete();
         });
     }
 

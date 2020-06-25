@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="#4A148C">
+    <v-app-bar app color="purple darken-4">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase">
         <nuxt-link :to="{name: 'dashboard'}" style="text-decoration: none; color: white;">
@@ -73,7 +73,7 @@
 <script>
 export default {
   data: () => ({
-    drawer:false,
+    drawer:true,
     mini: true,
     user: [
       {

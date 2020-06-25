@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-container>
         <span class="bg-wave"></span>
         <div class="mt-5"></div>
         <div class="mt-5"></div>
@@ -34,110 +34,112 @@
                             If you are a homeowner or are not working with an Agent, please enter responsible party's information.
                         </div>
                     </v-alert>
-                    <v-row>
-                        <v-col cols="12" md="6" sm="6">
-                            <v-text-field
-                                v-model="form.first_name"
-                                label="Agent First Name*"
-                                outlined
-                                prepend-inner-icon="mdi-book-account"
-                                :rules="[requiredInput('agent first name')]"
-                                >
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="6" sm="6">
-                            <v-text-field
-                                v-model="form.last_name"
-                                label="Agent Last Name*"
-                                outlined
-                                prepend-inner-icon="mdi-book-account"
-                                :rules="[requiredInput('agent last name')]"
-                                >
-                            </v-text-field>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col cols="12" md="6" sm="6">
-                            <v-text-field
-                                v-model="form.email"
-                                label="Agent Email*"
-                                outlined
-                                prepend-inner-icon="mdi-email"
-                                :rules="emailRules"
-                                >
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="6" sm="6">
-                            <v-text-field
-                                v-model="form.phone"
-                                label="Agent Phone Number*"
-                                outlined
-                                prepend-inner-icon="mdi-cellphone"
-                                :rules="[requiredInput('phone number')]"
-                                >
-                            </v-text-field>
-                        </v-col>
-                    </v-row>
-                    <v-row v-if="!createAccount">
-                        <v-col cols="12" md="6" sm="6">
-                            <v-text-field
-                                v-model="client_credentials.password"
-                                label="Password"
-                                outlined
-                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                :type="showPassword ? 'text' : 'password'"
-                                @click:append="showPassword = !showPassword"
-                                prepend-inner-icon="mdi-key"
-                                hint="Create a password to access your order."
-                                persistent-hint
-                                :rules="passwordRules"
-                                >
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="6" sm="6">
-                            <v-text-field
-                                v-model="passwordConfirm"
-                                label="Password Confirmation"
-                                outlined
-                                :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-                                :type="showPasswordConfirm ? 'text' : 'password'"
-                                @click:append="showPasswordConfirm = !showPasswordConfirm"
-                                prepend-inner-icon="mdi-key"
-                                :rules="[passwordConfirmationRule]"
-                                >
-                            </v-text-field>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col cols="12" md="12" sm="12">
-                            <v-text-field
-                                v-model="form.company_name"
-                                label="Agent Company*"
-                                outlined
-                                prepend-inner-icon="mdi-office-building"
-                                hint="AGENT INFORMATION OR RESPONSIBLE PARTY (do not enter assistant information here)"
-                                persistent-hint
-                                :rules="[requiredInput('company name')]"
-                                >
-                            </v-text-field>
-                        </v-col>
-                    </v-row>
-                    
-                    <v-checkbox v-model="createAccount" label="Place an order without creating an account."></v-checkbox>
-
+                    <v-switch v-model="form.createAccount" label="Place an order without creating an account."></v-switch>
+                    <v-form ref="form">
+                        <v-row>
+                            <v-col cols="12" md="6" sm="6">
+                                <v-text-field
+                                    v-model="form.first_name"
+                                    label="Agent First Name*"
+                                    outlined
+                                    prepend-inner-icon="mdi-book-account"
+                                    :rules="[requiredInput('agent first name')]"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="6" sm="6">
+                                <v-text-field
+                                    v-model="form.last_name"
+                                    label="Agent Last Name*"
+                                    outlined
+                                    prepend-inner-icon="mdi-book-account"
+                                    :rules="[requiredInput('agent last name')]"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12" md="6" sm="6">
+                                <v-text-field
+                                    v-model="form.email"
+                                    label="Agent Email*"
+                                    outlined
+                                    prepend-inner-icon="mdi-email"
+                                    :rules="emailRules"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="6" sm="6">
+                                <v-text-field
+                                    v-model="form.phone"
+                                    label="Agent Phone Number*"
+                                    outlined
+                                    prepend-inner-icon="mdi-cellphone"
+                                    :rules="[requiredInput('phone number')]"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row v-if="!form.createAccount">
+                            <v-col cols="12" md="6" sm="6">
+                                <v-text-field
+                                    v-model="form.password"
+                                    label="Password"
+                                    outlined
+                                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :type="showPassword ? 'text' : 'password'"
+                                    @click:append="showPassword = !showPassword"
+                                    prepend-inner-icon="mdi-key"
+                                    hint="Create a password to access your order."
+                                    persistent-hint
+                                    :rules="passwordRules"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="6" sm="6">
+                                <v-text-field
+                                    v-model="passwordConfirm"
+                                    label="Password Confirmation"
+                                    outlined
+                                    :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :type="showPasswordConfirm ? 'text' : 'password'"
+                                    @click:append="showPasswordConfirm = !showPasswordConfirm"
+                                    prepend-inner-icon="mdi-key"
+                                    :rules="[passwordConfirmationRule]"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12" md="12" sm="12">
+                                <v-text-field
+                                    v-model="form.company_name"
+                                    label="Agent Company*"
+                                    outlined
+                                    prepend-inner-icon="mdi-office-building"
+                                    hint="AGENT INFORMATION OR RESPONSIBLE PARTY (do not enter assistant information here)"
+                                    persistent-hint
+                                    :rules="[requiredInput('company name')]"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                    </v-form>
                     <nuxt-link :to="{ name: 'index' }" style="text-decoration: none;">Already have an account? Sign in here.</nuxt-link>
                     
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn depressed text :disabled="checkOrderButtonDisabler">Create Order</v-btn>
+                        <!-- <v-btn @click="printStatus()">Hello</v-btn> -->
+                        <v-btn @click="submit()" :disabled="checkOrderButtonDisabler" depressed text>Create Order</v-btn>
                     </v-card-actions>
                 </v-card-text>
             </v-card>
         </v-container>
-    </v-app>
+    </v-container>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Vuelidate from 'vuelidate'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 export default {
@@ -145,17 +147,15 @@ export default {
         showPassword: false,
         showPasswordConfirm: false,
         passwordConfirm: '',
-        createAccount: false,
         form: {
             first_name: '',
             last_name: '',
             email: '',
+            role: 'Client',
+            password: '',
             phone: '',
             company_name: '',
-        },
-        client_credentials: {
-            email: '',
-            password: '',
+            createAccount: false,
         },
         requiredInput(propertyType) {
             return v => v && v.length > 0 || `You must input the ${propertyType}.`
@@ -172,9 +172,20 @@ export default {
             v => v.match(/[0-9]/g) !== null || 'Password should have at least one number'
         ],
     }),
+    methods: {
+        submit() {
+            if(this.$refs.form.validate) {
+                this.$store.dispatch('clients/addClient', this.form)
+                this.$router.push('/')
+            }
+        },
+        // printStatus(){
+        //     console.log(this.form.createAccount)
+        // }
+    },
     computed: {
         passwordConfirmationRule() {
-            return this.client_credentials.password === this.passwordConfirm || "Passwords must match";
+            return this.form.password === this.passwordConfirm || "Passwords must match";
         },
         checkOrderButtonDisabler() {
             const fn = this.form.first_name.length;
@@ -182,13 +193,23 @@ export default {
             const em = this.form.email.length;
             const ph = this.form.phone.length;
             const cn = this.form.company_name.length;
+            const pw = this.form.password.length;
+            const pwc = this.passwordConfirm.length
 
-            if(fn > 0 && ln > 0 && em > 0 && ph > 0 && cn > 0) {
-                return false;
-            } else {
-                return true;
+            if(this.form.createAccount == false) {
+                if(fn > 0 && ln > 0 && em > 0 && ph > 0 && cn > 0 &&  pw > 0 && pwc > 0) {
+                    return false;
+                } else {
+                    return true
+                }
+            } else if(this.form.createAccount == true){
+                if(fn > 0 && ln > 0 && em > 0 && ph > 0 && cn > 0) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
-        }
+        },
     }
 }
 </script>

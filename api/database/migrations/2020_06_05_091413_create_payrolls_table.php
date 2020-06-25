@@ -15,7 +15,23 @@ class CreatePayrollsTable extends Migration
     {
         Schema::create('payrolls', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('property_address');
+            $table->date('appointment_date');
+            $table->decimal('total_sqfootage');
+            $table->text('comments');
+            $table->text('private_comments');
+            $table->string('surveyor_name');
+            $table->string('surveyor_paid');
+            $table->decimal('surveyor_amount_paid');
+            $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::table('payrolls', function (Blueprint $table) {
+            $table->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->cascadeOnDelete();
         });
     }
 

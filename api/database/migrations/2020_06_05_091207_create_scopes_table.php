@@ -15,7 +15,15 @@ class CreateScopesTable extends Migration
     {
         Schema::create('scopes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_id');
+            $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::table('scopes', function (Blueprint $table) {
+            $table->foreign('order_id')
+                    ->references('id')->on('projects')
+                    ->cascadeOnDelete();
         });
     }
 
