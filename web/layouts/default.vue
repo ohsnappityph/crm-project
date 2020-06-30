@@ -79,7 +79,7 @@ export default {
       {
         icon: 'mdi-account-box',
         title: 'User',
-        route: 'user'
+        route: 'users'
       },
     ],
     pages: [
@@ -96,7 +96,7 @@ export default {
       {
         icon: 'mdi-account',
         title: 'Clients',
-        route: 'clients'
+        route: 'users-clients'
       },
       {
         icon: 'mdi-account-hard-hat',

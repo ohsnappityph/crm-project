@@ -8,180 +8,183 @@
         <v-card color="transparent" flat>
             <v-card-title class="font-weight-light">New Surveyor</v-card-title>
             <v-card-text>
-                <v-row>
-                    <v-col cols="12" md="3" sm="3">
-                        <v-text-field
-                            v-model="form.first_name"
-                            label="First Name*"
-                            outlined
-                            dense
-                            prepend-inner-icon="mdi-book-account"
-                            :rules="[requiredInput('first name')]"
-                            >
-                        </v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="3" sm="3">
-                        <v-text-field
-                            v-model="form.last_name"
-                            label="Last Name*"
-                            outlined
-                            dense
-                            prepend-inner-icon="mdi-book-account"
-                            :rules="[requiredInput('last name')]"
-                            >
-                        </v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="3" sm="3">
-                        <v-select
-                            v-model="form.surveyor_timezone"
-                            label="Timezone*"
-                            :items="timezones"
-                            outlined
-                            dense
-                            prepend-inner-icon="mdi-clock"
-                            :rules="[requiredInput('timezone')]"
-                            >
-                        </v-select>
-                    </v-col>
-                    <v-col cols="12" md="3" sm="3">
-                        <v-select
-                            v-model="form.surveyor_location"
-                            label="Location*"
-                            :items="locations"
-                            outlined
-                            dense
-                            prepend-inner-icon="mdi-map-marker"
-                            :rules="[requiredInput('location')]"
-                            >
-                        </v-select>
-                    </v-col>
-                </v-row>
-                <v-row>
-                    <v-col cols="12" md="3" sm="3">
-                        <v-text-field
-                            v-model="form.email"
-                            label="Email*"
-                            outlined
-                            dense
-                            prepend-inner-icon="mdi-email"
-                            :rules="emailRules"
-                            >
-                        </v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="3" sm="3">
-                        <v-text-field
-                            v-model="form.surveyor_color_code"
-                            label="Surveyor Color Code*"
-                            type="color"
-                            outlined
-                            dense
-                            persistent-hint
-                            hint="Click here to select color code"
-                            @click="showColorPicker = !showColorPicker"
-                            :rules="[requiredInput('color code')]"
-                            >
-                        </v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6" sm="6">
-                        <v-text-field
-                            v-model="form.surveyor_address"
-                            label="Address*"
-                            outlined
-                            dense
-                            prepend-inner-icon="mdi-home-account"
-                            :rules="[requiredInput('address')]"
-                            >
-                        </v-text-field>
-                    </v-col>
-                </v-row>
-                <v-row>
-                    <v-col cols="12" md="3" sm="3">
-                        <v-text-field
-                            v-model="form.password"
-                            label="Password"
-                            outlined
-                            dense
-                            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                            :type="showPassword ? 'text' : 'password'"
-                            @click:append="showPassword = !showPassword"
-                            prepend-inner-icon="mdi-key"
-                            hint="Create a password to access your order."
-                            persistent-hint
-                            :rules="passwordRules"
-                            >
-                        </v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="3" sm="3">
-                        <v-text-field
-                            v-model="passwordConfirm"
-                            label="Password Confirmation"
-                            outlined
-                            dense
-                            :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-                            :type="showPasswordConfirm ? 'text' : 'password'"
-                            @click:append="showPasswordConfirm = !showPasswordConfirm"
-                            prepend-inner-icon="mdi-key"
-                            :rules="[passwordConfirmationRule]"
-                            >
-                        </v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="3" sm="3">
-                        <v-select
-                            v-model="form.surveyor_state"
-                            label="State*"
-                            :items="states"
-                            outlined
-                            dense
-                            prepend-inner-icon="mdi-map"
-                            :rules="[requiredInput('state')]"
-                            >
-                        </v-select>
-                    </v-col>
-                    <v-col cols="12" md="3" sm="3">
-                        <v-text-field
-                            v-model="form.surveyor_city"
-                            label="City*"
-                            outlined
-                            dense
-                            prepend-inner-icon="mdi-office-building"
-                            :rules="[requiredInput('city')]"
-                            >
-                        </v-text-field>
-                    </v-col>
-                </v-row>
-                <v-row>
-                    <v-col cols="12" md="6" sm="6">
-                        <v-textarea
-                            v-model="form.surveyor_schedule_notes"
-                            label="Surveyor Notes"
-                            outlined
-                            dense
-                            prepend-inner-icon="mdi-note-text"
-                            >
-                        </v-textarea>
-                    </v-col>
-                    <v-col cols="12" md="3" sm="3">
-                        <v-text-field
-                            v-model="form.surveyor_zip_code"
-                            label="Zip Code*"
-                            outlined
-                            dense
-                            prepend-inner-icon="mdi-map-legend"
-                            :rules="[requiredInput('zip code')]"
-                            >
-                        </v-text-field>
-                    </v-col>
-                </v-row>
+                <v-form ref="form">
+                    <v-row>
+                        <v-col cols="12" md="3" sm="3">
+                            <v-text-field
+                                v-model="form.first_name"
+                                label="First Name*"
+                                outlined
+                                dense
+                                prepend-inner-icon="mdi-book-account"
+                                :rules="[requiredInput('first name')]"
+                                >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="3" sm="3">
+                            <v-text-field
+                                v-model="form.last_name"
+                                label="Last Name*"
+                                outlined
+                                dense
+                                prepend-inner-icon="mdi-book-account"
+                                :rules="[requiredInput('last name')]"
+                                >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="3" sm="3">
+                            <v-select
+                                v-model="form.surveyor_timezone"
+                                label="Timezone*"
+                                :items="timezones"
+                                outlined
+                                dense
+                                prepend-inner-icon="mdi-clock"
+                                :rules="[requiredInput('timezone')]"
+                                >
+                            </v-select>
+                        </v-col>
+                        <v-col cols="12" md="3" sm="3">
+                            <v-select
+                                v-model="form.surveyor_location"
+                                label="Location*"
+                                :items="locations"
+                                outlined
+                                dense
+                                prepend-inner-icon="mdi-map-marker"
+                                :rules="[requiredInput('location')]"
+                                >
+                            </v-select>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" md="3" sm="3">
+                            <v-text-field
+                                v-model="form.email"
+                                label="Email*"
+                                outlined
+                                dense
+                                prepend-inner-icon="mdi-email"
+                                :rules="emailRules"
+                                >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="3" sm="3">
+                            <v-text-field
+                                v-model="form.surveyor_color_code"
+                                label="Surveyor Color Code*"
+                                type="color"
+                                outlined
+                                dense
+                                persistent-hint
+                                hint="Click here to select color code"
+                                @click="showColorPicker = !showColorPicker"
+                                :rules="[requiredInput('color code')]"
+                                >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="6" sm="6">
+                            <v-text-field
+                                v-model="form.surveyor_address"
+                                label="Address*"
+                                outlined
+                                dense
+                                prepend-inner-icon="mdi-home-account"
+                                :rules="[requiredInput('address')]"
+                                >
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" md="3" sm="3">
+                            <v-text-field
+                                v-model="form.password"
+                                label="Password"
+                                outlined
+                                dense
+                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="showPassword ? 'text' : 'password'"
+                                @click:append="showPassword = !showPassword"
+                                prepend-inner-icon="mdi-key"
+                                hint="Create a password to access your order."
+                                persistent-hint
+                                :rules="passwordRules"
+                                >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="3" sm="3">
+                            <v-text-field
+                                v-model="passwordConfirm"
+                                label="Password Confirmation"
+                                outlined
+                                dense
+                                :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="showPasswordConfirm ? 'text' : 'password'"
+                                @click:append="showPasswordConfirm = !showPasswordConfirm"
+                                prepend-inner-icon="mdi-key"
+                                :rules="[passwordConfirmationRule]"
+                                >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="3" sm="3">
+                            <v-select
+                                v-model="form.surveyor_state"
+                                label="State*"
+                                :items="states"
+                                outlined
+                                dense
+                                prepend-inner-icon="mdi-map"
+                                :rules="[requiredInput('state')]"
+                                >
+                            </v-select>
+                        </v-col>
+                        <v-col cols="12" md="3" sm="3">
+                            <v-text-field
+                                v-model="form.surveyor_city"
+                                label="City*"
+                                outlined
+                                dense
+                                prepend-inner-icon="mdi-office-building"
+                                :rules="[requiredInput('city')]"
+                                >
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" md="6" sm="6">
+                            <v-textarea
+                                v-model="form.surveyor_schedule_notes"
+                                label="Surveyor Notes"
+                                outlined
+                                dense
+                                prepend-inner-icon="mdi-note-text"
+                                >
+                            </v-textarea>
+                        </v-col>
+                        <v-col cols="12" md="3" sm="3">
+                            <v-text-field
+                                v-model="form.surveyor_zip_code"
+                                label="Zip Code*"
+                                outlined
+                                dense
+                                prepend-inner-icon="mdi-map-legend"
+                                :rules="[requiredInput('zip code')]"
+                                >
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
+                </v-form>
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn depressed text :disabled="checkOrderButtonDisabler">Add New Surveyor</v-btn>
+                <v-btn @click="submit()" depressed text :disabled="checkOrderButtonDisabler">Add New Surveyor</v-btn>
             </v-card-actions>
         </v-card>
     </v-container>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Vuelidate from 'vuelidate'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 export default {
@@ -437,6 +440,12 @@ export default {
             v => v.match(/[A-Z]/g) !== null || 'Password should have at least one uppercase character',
             v => v.match(/[0-9]/g) !== null || 'Password should have at least one number'
         ],
+        submit() {
+            if(this.$refs.form.validate()) {
+                this.$store.dispatch('surveyors/addSurveyor', this.form)
+                this.$router.push('/surveyors')
+            }
+        }
     }),
     methods: {
         

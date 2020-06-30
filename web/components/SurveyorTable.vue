@@ -25,7 +25,7 @@
           <v-card-text>
               <v-data-table
                 :headers="surveyorHeaders"
-                :items="items"
+                :items="allSurveyors"
                 :search="search"
                 multi-sort
                 loading-text="Loading clients... Please wait"
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
     data: () => ({
         search: '',
@@ -61,11 +62,16 @@ export default {
             {text:"Created", value:"created_at"},
             {text:"Actions", sortable: false, value:"actions"},
         ],
-        items: [
-            {id: 1, surveyor_color_code:"#4A148C", first_name:"Jizni", last_name:"Corrine", surveyor_location:"Iligan", created_at:"10-19-2020"},
-            {id: 2, surveyor_color_code:"#4A148C", first_name:"Enzzo", last_name:"Ostia", surveyor_location:"Iligan", created_at:"05-31-2020"}
-        ]
     }),
+    methods: {
+        ...mapActions({fetchAllSurveyors: 'surveyors/fetchAllSurveyors'}),
+    },
+    computed: {
+        ...mapGetters({allSurveyors: 'surveyors/surveyors'}),
+    },
+    created() {
+        this.fetchAllSurveyors()
+    }
 }
 </script>
 

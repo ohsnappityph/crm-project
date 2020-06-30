@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Client;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ClientController extends Controller
 {
@@ -78,7 +79,7 @@ class ClientController extends Controller
 
         return response()->json([
             'query' => $client,
-            'message' => 'A new client has been added'
+            'message' => 'A new client has been added.'
         ]);
     }
 
@@ -115,16 +116,16 @@ class ClientController extends Controller
     {
         $client = Client::find($id);
         $client->first_name = $request->get('first_name');
-        $client->first_name = $request->get('last_name');
-        $client->first_name = $request->get('email');
-        $client->first_name = $request->get('company_name');
-        $client->first_name = $request->get('phone');
-        $client->first_name = $request->get('poc_first_name');
-        $client->first_name = $request->get('poc_last_name');
-        $client->first_name = $request->get('poc_relationship');
-        $client->first_name = $request->get('client_preferences');
-        $client->first_name = $request->get('referred_by');
-        $client->first_name = $request->get('payment_info');
+        $client->last_name = $request->get('last_name');
+        $client->email = $request->get('email');
+        $client->company_name = $request->get('company_name');
+        $client->phone = $request->get('phone');
+        $client->poc_first_name = $request->get('poc_first_name');
+        $client->poc_last_name = $request->get('poc_last_name');
+        $client->poc_relationship = $request->get('poc_relationship');
+        $client->client_preferences = $request->get('client_preferences');
+        $client->referred_by = $request->get('referred_by');
+        $client->payment_info = $request->get('payment_info');
         $client->save();
 
         return response()->json($client, 200);
@@ -172,7 +173,7 @@ class ClientController extends Controller
         if($client != null) {
             $client->forceDelete();
             return response()->json([
-                'message' => 'An archived client has been restored.',
+                'message' => 'An archived client has been deleted.',
             ]);
         } else {
             return response()->json([

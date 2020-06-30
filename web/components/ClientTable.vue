@@ -14,7 +14,7 @@
                     >
                 </v-text-field>
                 <v-spacer></v-spacer>
-                <v-btn :to="{name: 'clients-create'}" text depressed>
+                <v-btn :to="{name: 'users-clients-create'}" text depressed>
                     <v-icon left>mdi-plus</v-icon>
                     New Client
                 </v-btn>
@@ -40,7 +40,7 @@
                         </div>
                     </template>
                     <template v-slot:item.actions="{item}">
-                        <v-btn :to="{name: 'clients-id', params: {id:item.id}}" icon>
+                        <v-btn :to="{name: 'users-clients-id', params: {id:item.id}}" icon>
                             <v-icon color="yellow darken-2">mdi-eye</v-icon>
                         </v-btn>
                     </template>

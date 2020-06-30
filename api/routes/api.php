@@ -28,7 +28,36 @@ Route::group([
     Route::post('me', 'AuthController@me');
 });
 
-Route::apiResource('clients', 'ClientController');
-Route::get('/clients/archived/all', 'ClientController@retrieveDeleted');
-Route::get('clients/restore/{id}', 'ClientController@restoreHousehold');
-Route::get('clients/delete/{id}', 'ClientController@forceDestroy');
+// Route::apiResource('clients', 'User/ClientController');
+// Route::get('/clients/archived/all', 'User/ClientController@retrieveDeleted');
+// Route::get('clients/restore/{id}', 'User/ClientController@restoreHousehold');
+// Route::get('clients/delete/{id}', 'User/ClientController@forceDestroy');
+
+// Route::apiResource('surveyors', 'User/UserController');
+// Route::get('/surveyors/archived/all', 'User/UserController@retrieveDeleted');
+// Route::get('surveyors/restore/{id}', 'User/UserController@restoreHousehold');
+// Route::get('surveyors/delete/{id}', 'User/UserController@forceDestroy');
+
+// Route::apiResource('users', 'User/UserController');
+// Route::get('/users/archived/all', 'User/UserController@retrieveDeleted');
+// Route::get('users/restore/{id}', 'User/UserController@restoreHousehold');
+// Route::get('users/delete/{id}', User/'UserController@forceDestroy');
+
+Route::group([
+    'prefix' => 'users'
+], function () {
+    Route::apiResource('/clients', 'User\ClientController');
+    Route::get('/clients/archived/all', 'User\ClientController@retrieveDeleted');
+    Route::get('clients/restore/{id}', 'User\ClientController@restoreClient');
+    Route::get('clients/delete/{id}', 'User\ClientController@forceDestroy');
+
+    Route::apiResource('/users', 'User\UserController');
+    Route::get('/users/archived/all', 'User\UserController@retrieveDeleted');
+    Route::get('users/restore/{id}', 'User\UserController@restoreUser');
+    Route::get('users/delete/{id}', 'User\UserController@forceDestroy');
+});
+
+Route::apiResource('surveyors', 'User\SurveyorController');
+Route::get('/surveyors/archived/all', 'User\SurveyorController@retrieveDeleted');
+Route::get('surveyors/restore/{id}', 'User\SurveyorController@restoreSurveyor');
+Route::get('surveyors/delete/{id}', 'User\SurveyorController@forceDestroy');

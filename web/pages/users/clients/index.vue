@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import ClientTable from "../../components/ClientTable"
+import ClientTable from "../../../components/ClientTable"
 export default {
   components: {
     ClientTable,

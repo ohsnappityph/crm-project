@@ -1,19 +1,18 @@
 <template>
     <v-container>
         <div>
-            <v-btn :to="{ name: 'clients' }" color="transparent" depressed fab small>
+            <v-btn @click="backTo()" color="transparent" depressed fab small>
                 <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
         </div>
         <v-card color="transparent" flat>
             <v-card-title class="font-weight-light">New Client</v-card-title>
             <v-card-text>
-                <v-switch v-model="form.createAccount" label="Place an order without creating an account."></v-switch>
                 <v-form ref="form">
                     <v-row>
                         <v-col cols="12" md="3" sm="3">
                             <v-text-field
-                                v-model="form.first_name"
+                                v-model="first_name"
                                 label="First Name*"
                                 outlined
                                 dense
@@ -24,7 +23,7 @@
                         </v-col>
                         <v-col cols="12" md="3" sm="3">
                             <v-text-field
-                                v-model="form.last_name"
+                                v-model="last_name"
                                 label="Last Name*"
                                 outlined
                                 dense
@@ -35,7 +34,7 @@
                         </v-col>
                         <v-col cols="12" md="3" sm="3">
                             <v-text-field
-                                v-model="form.poc_first_name"
+                                v-model="poc_first_name"
                                 label="POC First Name"
                                 outlined
                                 dense
@@ -45,7 +44,7 @@
                         </v-col>
                         <v-col cols="12" md="3" sm="3">
                             <v-text-field
-                                v-model="form.poc_last_name"
+                                v-model="poc_last_name"
                                 label="POC Last Name"
                                 outlined
                                 dense
@@ -57,7 +56,7 @@
                     <v-row>
                         <v-col cols="12" md="3" sm="3">
                             <v-text-field
-                                v-model="form.email"
+                                v-model="email"
                                 label="Email*"
                                 outlined
                                 dense
@@ -68,7 +67,7 @@
                         </v-col>
                         <v-col cols="12" md="3" sm="3">
                             <v-text-field
-                                v-model="form.phone"
+                                v-model="phone"
                                 label="Phone Number*"
                                 outlined
                                 dense
@@ -79,7 +78,7 @@
                         </v-col>
                         <v-col cols="12" md="6" sm="6">
                             <v-text-field
-                                v-model="form.poc_relationship"
+                                v-model="poc_relationship"
                                 label="POC Relationship"
                                 outlined
                                 dense
@@ -91,7 +90,7 @@
                     <v-row>
                         <v-col cols="12" md="6" sm="6">
                             <v-text-field
-                                v-model="form.company_name"
+                                v-model="company_name"
                                 label="Company*"
                                 outlined
                                 dense
@@ -104,7 +103,7 @@
                         </v-col>
                         <v-col cols="12" md="3" sm="3">
                             <v-text-field
-                                v-model="form.payment_info"
+                                v-model="payment_info"
                                 label="Payment Method"
                                 outlined
                                 dense
@@ -114,7 +113,7 @@
                         </v-col>
                         <v-col cols="12" md="3" sm="3">
                             <v-text-field
-                                v-model="form.referred_by"
+                                v-model="referred_by"
                                 label="Referred By"
                                 outlined
                                 dense
@@ -124,40 +123,9 @@
                         </v-col>
                     </v-row>
                     <v-row>
-                        <v-col v-if="form.createAccount" cols="12" md="6" sm="6"></v-col>
-                        <v-col v-if="!form.createAccount" cols="12" md="3" sm="3">
-                            <v-text-field
-                                v-model="form.password"
-                                label="Password"
-                                outlined
-                                dense
-                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                :type="showPassword ? 'text' : 'password'"
-                                @click:append="showPassword = !showPassword"
-                                prepend-inner-icon="mdi-key"
-                                hint="Create a password to access your order."
-                                persistent-hint
-                                :rules="passwordRules"
-                                >
-                            </v-text-field>
-                        </v-col>
-                        <v-col v-if="!form.createAccount" cols="12" md="3" sm="3">
-                            <v-text-field
-                                v-model="passwordConfirm"
-                                label="Password Confirmation"
-                                outlined
-                                dense
-                                :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-                                :type="showPasswordConfirm ? 'text' : 'password'"
-                                @click:append="showPasswordConfirm = !showPasswordConfirm"
-                                prepend-inner-icon="mdi-key"
-                                :rules="[passwordConfirmationRule]"
-                                >
-                            </v-text-field>
-                        </v-col>
                         <v-col cols="12" md="6" sm="6">
                             <v-textarea
-                                v-model="form.client_preferences"
+                                v-model="client_preferences"
                                 label="Preferences"
                                 outlined
                                 dense
@@ -170,38 +138,18 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <!-- <v-btn @click="printCreateAccount()">Print</v-btn> -->
-                <v-btn @click="submit()" depressed text :disabled="checkOrderButtonDisabler">Add New Client</v-btn>
+                <v-btn @click="submit()" depressed text>Add New Client</v-btn>
             </v-card-actions>
         </v-card>
     </v-container>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import Vuelidate from 'vuelidate'
+import { mapGetters, mapActions, mapState } from 'vuex'
+import { mapFields } from 'vuex-map-fields'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 export default {
     data: () => ({
-        showPassword: false,
-        showPasswordConfirm: false,
-        passwordConfirm: '',
-        form: {
-            first_name: '',
-            last_name: '',
-            email: '',
-            createAccount: false,
-            password: '',   
-            company_name: '',
-            phone: '',
-            role: 'Client',
-            poc_first_name: '',
-            poc_last_name: '',
-            poc_relationship: '',
-            client_preferences: '',
-            referred_by: '',
-            payment_info: '',
-        },
         requiredInput(propertyType) {
             return v => v && v.length > 0 || `You must input the ${propertyType}.`
         },
@@ -218,43 +166,35 @@ export default {
         ],
     }),
     methods: {
+        ...mapActions({fetchOneClient: 'clients/fetchOneClient,'}),
         submit() {
             if(this.$refs.form.validate()) {
-                this.$store.dispatch('clients/addClient', this.form)
-                this.$router.push('/clients')
+                this.$store.dispatch('clients/updateClient', {id:this.$route.params.id})
+                // this.$router.push({ name: 'users-clients-id', params: {id:this.$route.params.id}})
+                this.$router.go(-1)
             }
         },
-        // printCreateAccount() {
-        //     console.log(this.form.createAccount)
-        // }
+        backTo() {
+            this.$router.go(-1)
+        }
     },
     computed: {
-        passwordConfirmationRule() {
-            return this.form.password === this.passwordConfirm || "Passwords must match";
-        },
-        checkOrderButtonDisabler() {
-            const fn = this.form.first_name.length;
-            const ln = this.form.last_name.length;
-            const em = this.form.email.length;
-            const ph = this.form.phone.length;
-            const cn = this.form.company_name.length;
-            const pw = this.form.password.length;
-            const pwc = this.passwordConfirm.length
-
-            if(this.form.createAccount == false) {
-                if(fn > 0 && ln > 0 && em > 0 && ph > 0 && cn > 0 &&  pw > 0 && pwc > 0) {
-                    return false;
-                } else {
-                    return true
-                }
-            } else if(this.form.createAccount == true){
-                if(fn > 0 && ln > 0 && em > 0 && ph > 0 && cn > 0) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        },
+        ...mapFields('clients', [
+            'client.first_name',
+            'client.last_name',
+            'client.email',
+            'client.phone',
+            'client.company_name',
+            'client.poc_first_name',
+            'client.poc_last_name',
+            'client.poc_relationship',
+            'client.client_preferences',
+            'client.referred_by',
+            'client.payment_info',
+        ]),
+    },
+    async fetch({ store, params }) {
+        await store.dispatch('clients/fetchOneClient', params.id)
     }
 }
 </script>

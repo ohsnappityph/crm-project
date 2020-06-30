@@ -27,7 +27,7 @@ export const actions = {
     // Creates a client
     async addClient({dispatch}, client) {
         try {
-            const res = await this.$axios.$post('/api/clients', client)
+            const res = await this.$axios.$post('/api/users/clients', client)
 
             console.log(res)
         }catch(error) {
@@ -38,8 +38,9 @@ export const actions = {
     async updateClient({state}, payload) {
         try {
             payload = state.client
+            console.log('New Client data received.')
             console.log(payload)
-            const data = await this.$axios.$put(`/api/clients/${payload.id}`, payload)
+            const data = await this.$axios.$put(`/api/users/clients/${payload.id}`, payload)
 
             console.log(data, 'Client has been updated')
         }catch(error) {
@@ -49,21 +50,22 @@ export const actions = {
     //Fetch all clients 
     async fetchAllClients({commit}) {
         try {
-            const data = await this.$axios.$get('/api/clients')
+            const data = await this.$axios.$get('/api/users/clients')
 
-            commit("FETCH_ALL_CLIENTS", data)
+            commit("SET_ALL_CLIENTS", data)
             console.log('Clients data fetched.')
             console.log(data)
         }catch(error) {
             console.log(error)
         }
     },
+
     //Fetch one client
     async fetchOneClient({commit}, id) {
         try {
-            const data = await this.$axios.$get(`/api/clients/${id}`)
+            const data = await this.$axios.$get(`/api/users/clients/${id}`)
 
-            commit('FETCH_ONE_CLIENT', data)
+            commit('SET_ONE_CLIENT', data)
             console.log('Client data fetched.')
             console.log(data)
         }catch(error) {
@@ -75,7 +77,7 @@ export const actions = {
         try {
             console.log('Delete this client data?')
             console.log(payload)
-            const deleted = await this.$axios.$delete(`/api/clients/${payload}`)
+            const deleted = await this.$axios.$delete(`/api/users/clients/${payload}`)
 
             if(deleted) {
                 commit('DESTROY_CLIENT', payload)
@@ -99,9 +101,9 @@ export const actions = {
     //Fetch all archived clients
     async fetchAllArchived({commit}) {
         try {
-            const data = await this.$axios.$get('/api/clients/archived/all')
+            const data = await this.$axios.$get('/api/users/clients/archived/all')
 
-            commit("FETCH_ALL_ARCHIVED_CLIENTS", data)
+            commit("SET_ALL_ARCHIVED_CLIENTS", data)
             console.log('Archived clients data fetched.')
             console.log(data)
         }catch(error) {
@@ -113,7 +115,7 @@ export const actions = {
         try {
             console.log('Restore this client?')
             console.log(payload)
-            const restored = await this.$axios.$get(`/api/clients/restore/${payload}`)
+            const restored = await this.$axios.$get(`/api/users/clients/restore/${payload}`)
             console.log(restored)
             if(restored) {
                 commit('RESTORE_ARCHIVED_CLIENT', payload)
@@ -135,7 +137,7 @@ export const actions = {
         try {
             console.log('Force delete this payload?')
             console.log(payload)
-            const deleted = await this.$axios.$get(`api/clients/delete/${payload}`)
+            const deleted = await this.$axios.$get(`api/users/clients/delete/${payload}`)
             console.log(deleted)
             if(deleted) {
                 commit('FORCE_DELETE_ARCHIVED_CLIENT', payload)
@@ -156,10 +158,10 @@ export const actions = {
 
 export const mutations = {
     //fetchAllClients mutation
-    FETCH_ALL_CLIENTS: (state, payload) => state.clients = payload,
+    SET_ALL_CLIENTS: (state, payload) => state.clients = payload,
 
     //fetchOneClient mutation
-    FETCH_ONE_CLIENT: (state, payload) => state.client = payload,
+    SET_ONE_CLIENT: (state, payload) => state.client = payload,
 
     //destroyClient mutation
     DESTROY_CLIENT: (state, payload) => {
@@ -168,7 +170,7 @@ export const mutations = {
     },
 
     //fetchAllArchived mutation
-    FETCH_ALL_ARCHIVED_CLIENTS: (state, payload) => state.archives = payload,
+    SET_ALL_ARCHIVED_CLIENTS: (state, payload) => state.archives = payload,
 
     //restoreOneClient mutation
     RESTORE_ARCHIVED_CLIENT: (state, payload) => {
